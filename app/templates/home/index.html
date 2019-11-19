@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+<h5>Upload da Imagem</h5>
+
+{% endblock header %}
+
+{% block content %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label><strong>Selecione a imagem: </strong> </label>
+            <input type="file" name="image" id="imagem" placeholder="">
+            <label for="">Selecione imagem de uma lesão de pele</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Imagem</button>
+    </form>
+{% endblock content %}
