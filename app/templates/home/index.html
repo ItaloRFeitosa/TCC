@@ -2,18 +2,46 @@
 
 {% block header %}
 
-<h5>Upload da Imagem</h5>
+<h1>Classificador de Lesão de Pele com Machine Learning</h1>
 
 {% endblock header %}
 
 {% block content %}
-    <form action="" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-            <label><strong>Selecione a imagem: </strong> </label>
-            <input type="file" name="image" id="imagem" placeholder="">
-            <label for="">Selecione imagem de uma lesão de pele</label>
-        </div>
 
-        <button type="submit" class="btn btn-primary">Imagem</button>
-    </form>
+<div class="col-md-4">
+    <div class="row">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Upload da Imagem</h3>
+            </div>
+            
+            <div class="box-body">
+                <form id="uploadImage" action="{{url_for('upload_image')}}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="image">Selecione imagem</label>
+                        <input type="file" id="image" name="image">
+                        
+                        <p class="help-block">Selecione imagem de uma lesão de pele.</p>
+                    </div>
+                    
+                    
+                </form>
+            </div>
+            
+            <div class="box-footer">
+                <button type="submit" form="uploadImage" class="btn btn-primary pull-right">Classificar Imagem</button>
+            </div>
+        </div>
+        
+    </div>
+    {% block image %}
+
+    {% endblock image %}
+</div>
+
+{% block results %}
+
+{% endblock results %}
+
+
 {% endblock content %}

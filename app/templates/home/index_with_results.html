@@ -1,0 +1,46 @@
+{% extends 'home/index.html' %}
+
+{% block image %}
+<div class="row">
+    
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Imagem</h3>
+            </div>
+            
+            <div class="box-body">
+                <img src="{{path}}" style="width:100%">
+            </div>
+            
+            <div class="box-footer">
+                
+            </div>
+        </div>
+
+</div>  
+{% endblock image %}
+
+
+{% block results %}
+<div class="col-md-8">
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Resultados Xception</h3>
+            </div>
+            
+            <div class="box-body">
+                {% for p in pred  %}
+                <p>{{p}} %</p>
+                {% endfor %}
+            </div>
+            
+            <div class="box-footer">
+                
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock results %}
+

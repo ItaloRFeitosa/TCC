@@ -1,0 +1,22 @@
+from tensorflow.keras.applications.resnet import ResNet50
+from tensorflow.keras.applications.resnet import preprocess_input
+import numpy as np
+from tensorflow.keras.preprocessing import image
+from joblib import load
+import numpy as np
+
+
+def path_to_tensor(img_path):
+    img = image.load_img(img_path, target_size=(224, 224))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_input(x)
+    return x
+
+def extract_features(path):
+    tensor = path_to_tensor(path)
+    resnet50_model = ResNet50(include_top=False, weights='imagenet', pooling='avg')
+    return resnet50_model.predict(tensor).flatten()
+
+# classificador svm com features normalizados
+def svm_rbf_norm():

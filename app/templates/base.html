@@ -1,50 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html style="height: auto; min-height: 100%;">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+    <!-- Theme style -->
+    <link href="{{ url_for('static',filename='css/AdminLTE.min.css') }}" rel="stylesheet"/>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+    <link href="{{ url_for('static',filename='css/skins/_all-skins.min.css') }}" rel="stylesheet"/>
+
 </head>
 
-<body>
-    <div class="row" style="margin-bottom: 1em;">
-       
-        <div class="col-md-12">
-            <nav class="navbar navbar-dark bg-primary">
-                <span class="navbar-brand mb-0 h1">Nome da Aplicação</span>
+<body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        
+        <header class="main-header">
+            <nav class="navbar navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="" class="navbar-brand"><b>SkinCancer</b>Classification</a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+                    
+                    
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Sobre</a></li>
+                        </ul>
+                        
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>  
+        </header>
+        
+        <div class="content-wrapper" style="height: 100%;">
+            <div class="container">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    {% block header %}
+                    
+                    {% endblock header %}
+                </section>
                 
-            </nav>
-        </div>
-    
-
-    </div>
-
-    <div class="row">
-      
-        <div class="col-md-2">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Perfil</a>
-                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Sobre</a>
+                <!-- Main content -->
+                <section class="content">
+                    
+                   {% block content %}
+                   
+                   {% endblock content %}
+                </section>
+                <!-- /.content -->
             </div>
+            <!-- /.container -->
         </div>
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-header">
-                        {% block header %}
-                        {% endblock header %}
+        
+        <footer class="main-footer">
+                <div class="container">
+                  <div class="pull-right hidden-xs">
+                    <b>Version</b> 1.0.0
+                  </div>
+                  <p>Desenvolvido por <strong>Italo Feitosa</strong> em 2019 para Trabalho de Conclusão de Curso</p> 
                 </div>
-                <div class="card-body">
-                    {% block content %}
-                    {% endblock content %}
-                </div>
-            </div>
-        </div>
-       
+                <!-- /.container -->
+        </footer>
     </div>
-    
-
 </body>
-
 </html>
