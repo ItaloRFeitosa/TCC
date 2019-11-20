@@ -3,7 +3,7 @@ from flask import Flask, render_template, flash, request, redirect, url_for, sen
 from werkzeug.utils import secure_filename
 from classifiers import classifiers
 
-UPLOAD_FOLDER = "app\\static\\upload"
+UPLOAD_FOLDER = os.getcwd() + "\\static\\upload"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app = Flask(__name__)
 app.upload_folder = UPLOAD_FOLDER
@@ -43,8 +43,8 @@ def upload_image():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     path = url_for('static', filename = 'upload/'+filename)
-    pred = svm_rbf.predict(filename)
-    return render_template("home/index_with_results.html", path = path, pred = pred)
+    pred = classifiers.predict(filename)
+    return render_template("home/index_with_results.html", path = path, predictions = pred)
     
 
 

@@ -4,7 +4,12 @@ import numpy as np
 from tensorflow.keras.preprocessing import image
 from joblib import load
 import numpy as np
-import utils.normalizar as normalizar
+
+def normalizar(x):
+    x_mean = np.mean(x)
+    x_std = np.std(x)
+    x = (x - x_mean)/x_std
+    return x
 
 def path_to_tensor(img_path):
     img = image.load_img(img_path, target_size=(299, 299))
@@ -22,14 +27,14 @@ def extract_features(path):
 
 def svm(imgpath, modelspath, kernel, normalizado):
     feature = extract_features(imgpath)
-    if kernel = 'rbf':
+    if (kernel == 'rbf'):
         if normalizado:
             feature = normalizar(feature)
             clf = load(modelspath + "\\xception_svm_rbf_norm.joblib")
-        
-        clf = load(modelspath + "\\xception_svm_rbf.joblib")
+        else:
+            clf = load(modelspath + "\\xception_svm_rbf.joblib")
     
-    elif kernel = 'linear':
+    elif (kernel == 'linear'):
         if normalizado:
             feature = normalizar(feature)
             clf = load(modelspath + "\\xception_svm_linear_norm.joblib")
