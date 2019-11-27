@@ -1,11 +1,9 @@
 
 from tensorflow.keras.models import load_model
-from tensorflow.keras.applications.resnet import preprocess_input
+from tensorflow.keras.applications.vgg16 import preprocess_input
 import numpy as np
 from tensorflow.keras.preprocessing import image
 from joblib import load
-import numpy as np
-
 
 def normalizar(x):
     x_mean = np.mean(x)
@@ -14,7 +12,7 @@ def normalizar(x):
     return x
 
 def path_to_tensor(img_path):
-    img = image.load_img(img_path, target_size=(224, 224))
+    img = image.load_img(img_path, target_size=(299, 299))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x)
@@ -22,18 +20,16 @@ def path_to_tensor(img_path):
 
 def extract_features(path):
     tensor = path_to_tensor(path)
-    resnet50_model = load_model('classifiers/features_extraction/cnn_resnet50.h5')
-    feature = resnet50_model.predict(tensor).flatten()
-    return feature
+    vgg16_model = load_model('classifiers/features_extraction/cnn_vgg16.h5')
+    return vgg16_model.predict(tensor).flatten()
 
-# classificador svm com features normalizados
 def svm(imgpath, modelspath, kernel, normalizado):
 
     feature = extract_features(imgpath)
     if (kernel == 'rbf'):
         if normalizado:
             feature = normalizar(feature)
-            clf = load(modelspath + "\\resnet50_svm_rbf_norm.joblib")
+            clf = load(modelspath + "\\vgg16_svm_rbf_norm.joblib")
         else:
             #clf = load(modelspath + "\\xception_svm_rbf.joblib")
             return 'indefinido'
@@ -41,7 +37,7 @@ def svm(imgpath, modelspath, kernel, normalizado):
     elif (kernel == 'linear'):
         if normalizado:
             feature = normalizar(feature)
-            clf = load(modelspath + "\\resnet50_svm_linear_norm.joblib")
+            clf = load(modelspath + "\\vgg16_svm_linear_norm.joblib")
         else:
             return 'indefinido'
 

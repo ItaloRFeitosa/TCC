@@ -1,6 +1,7 @@
-from tensorflow.keras.applications.xception import Xception
+
+from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.xception import preprocess_input
-import numpy as np
+#
 from tensorflow.keras.preprocessing import image
 from joblib import load
 import numpy as np
@@ -21,11 +22,14 @@ def path_to_tensor(img_path):
 
 def extract_features(path):
     tensor = path_to_tensor(path)
-    xception_model = Xception(weights='imagenet', include_top=False, pooling='avg')
-    return xception_model.predict(tensor).flatten()
+    xception_model = load_model('classifiers/features_extraction/cnn_xception.h5')
+    feature = xception_model.predict(tensor).flatten()
+
+    return feature
 
 
 def svm(imgpath, modelspath, kernel, normalizado):
+
     feature = extract_features(imgpath)
     if (kernel == 'rbf'):
         if normalizado:

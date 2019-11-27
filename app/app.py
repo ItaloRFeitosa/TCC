@@ -1,7 +1,8 @@
 import os
 from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory
+
 from werkzeug.utils import secure_filename
-from classifiers import classifiers
+from classifiers import predictions
 
 UPLOAD_FOLDER = os.getcwd() + "\\static\\upload"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -43,9 +44,9 @@ def upload_image():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     path = url_for('static', filename = 'upload/'+filename)
-    pred = classifiers.predict(filename)
+    pred = predictions.predict(filename)
     return render_template("home/index_with_results.html", path = path, predictions = pred)
-    
+    # return render_template("home/index.html")
 
 
 if __name__ =="__main__":
