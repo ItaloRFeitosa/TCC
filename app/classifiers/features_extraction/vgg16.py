@@ -31,15 +31,14 @@ def svm(imgpath, modelspath, kernel, normalizado):
             feature = normalizar(feature)
             clf = load(modelspath + "\\vgg16_svm_rbf_norm.joblib")
         else:
-            #clf = load(modelspath + "\\xception_svm_rbf.joblib")
-            return 'indefinido'
+            clf = load(modelspath + "\\vgg16_svm_rbf.joblib")
     
     elif (kernel == 'linear'):
         if normalizado:
             feature = normalizar(feature)
             clf = load(modelspath + "\\vgg16_svm_linear_norm.joblib")
         else:
-            return 'indefinido'
+            clf = load(modelspath + "\\vgg16_svm_linear.joblib")
 
     pred = np.ravel(clf.predict_proba(np.reshape(feature, (1, -1))))
     pred = [(round(p,4)*100) for p in pred]

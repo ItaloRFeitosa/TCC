@@ -42,6 +42,8 @@ def svm(imgpath, modelspath, kernel, normalizado):
         if normalizado:
             feature = normalizar(feature)
             clf = load(modelspath + "\\xception_svm_linear_norm.joblib")
+        else:
+            clf = load(modelspath + "\\xception_svm_linear.joblib")
 
     pred = np.ravel(clf.predict_proba(np.reshape(feature, (1, -1))))
     pred = [(round(p,4)*100) for p in pred]

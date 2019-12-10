@@ -8,8 +8,11 @@
 
 {% block content %}
 
-<div class="col-md-4">
-    <div class="row">
+<div class="row">
+    {% block image %}
+
+    {% endblock image %}
+    <div class="col-md-8">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Upload da Imagem</h3>
@@ -34,14 +37,19 @@
         </div>
         
     </div>
-    {% block image %}
-
-    {% endblock image %}
 </div>
 
-{% block results %}
+<div class="row">
+    {% block chart %}
 
-{% endblock results %}
+    {% endblock %}
+    
+</div>
+<div class="row">
+    {% block results %}
+    
+    {% endblock results %}
+</div>
 
 
 {% endblock content %}

@@ -1,7 +1,7 @@
 {% extends 'home/index.html' %}
 
 {% block image %}
-<div class="row">
+<div class="col-md-4">
     
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -20,39 +20,36 @@
 </div>  
 {% endblock image %}
 
+{% block chart %}
+<div class="col-md-12">
 
-{% block results %}
-<div class="col-md-8">
-    
-        
-    <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Resultados</h3>
+                <h3 class="box-title">Resultados Gerais</h3>
             </div>
             
             <div class="box-body">
                 <table class="table no-margin">
                     <tr>
-                        <th>Modelos/Rótulos</th>
-                        {% for label in predictions['labels'] %}
-                        <th>{{ label }}</th>
+                        <th></th>
+                        {% for label in predictions['descricao'] %}
+                        <th align="center">{{ label }}</th>
                         {% endfor %}
                         
                     </tr>
-                   
-                    {% for pred in predictions['preds']  %}
+                    
                     <tr>
-                        <td style="width: 20%;">{{pred['name']}}</td>
-                        {% for p in pred['pred'] %}
-                            {% if  p ==  pred['pred'][pred['max']] %}
-                            <td align="center"><strong>{{ '%.3f' % p }}</strong> %</td>
-                            {% else %}
-                            <td align="center">{{ '%.3f' % p }} %</td>
-                            {% endif %}
+                        <td>Média Geral</td>
+                        {% for media in predictions['media'] %}
+                        {% if (media > 60) %}
+                        <td align="center"><strong>{{ '%.3f' % media }} %</strong></td>
+                        {% elif  (media >= 20) and (media <= 60) %}
+                        <td align="center"><strong style="color: red;">{{ '%.3f' % media }} %</strong></td>
+                        {% else %}
+                        <td align="center">{{ '%.3f' % media }} %</td>
+                        {% endif %}
                         {% endfor %}
                     </tr>
-                    {% endfor %}
                     
                 </table>
                 
@@ -62,7 +59,53 @@
                 
             </div>
         </div>
+        
+        
+        
     </div>
+{% endblock chart %}
+
+{% block results %}
+<div class="col-md-12">  
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Resultados Individuais</h3>
+        </div>
+        
+        <div class="box-body">
+            <table class="table no-margin">
+                <tr>
+                    <th>Modelos/Rótulos</th>
+                    {% for label in predictions['labels'] %}
+                    <th align="center">{{ label }}</th>
+                    {% endfor %}
+                    
+                </tr>
+                
+                {% for pred in predictions['preds']  %}
+                <tr>
+                    <td style="width: 30%;">{{pred['name']}}</td>
+                    {% for p in pred['pred'] %}
+                    {% if  (p ==  pred['pred'][pred['max']]) and (p > 60) %}
+                    <td align="center"><strong>{{ '%.3f' % p }} %</strong></td>
+                    {% elif  (p >= 20) and (p <= 60) %}
+                    <td align="center"><strong style="color: red;">{{ '%.3f' % p }} %</strong></td>
+                    {% else %}
+                    <td align="center">{{ '%.3f' % p }} %</td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+                
+            </table>
+            
+        </div>
+        
+        <div class="box-footer">
+            
+        </div>
+    </div>
+    
     
     
 </div>
