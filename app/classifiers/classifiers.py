@@ -32,7 +32,8 @@ def predict(filename):
                         'Melanocytic nevi',
                         'Vascular'
                         ],
-        'media' : [0, 0, 0, 0, 0, 0, 0]
+        'media' : list([0, 0, 0, 0, 0, 0, 0]),
+        'binary': list([0,0])
     }
     predictions['preds'] = []
 
@@ -57,9 +58,16 @@ def predict(filename):
     predictions['preds'].append(make_dict(inceptionv3.svm(imgpath, modelspath, 'linear', True), 'InceptionV3 + normalização + SVM (Kernel linear)'))
 
     for preds in predictions['preds']:
+        if ((preds['pred'][0]>10) or (preds['pred'][1]>10) or (preds['pred'][4]>10)):
+            predictions['binary'][1] += 1
+        else:
+            predictions['binary'][0] += 1
         for i, pred in enumerate(preds['pred']):
             predictions['media'][i] += pred
-
+                
+    total = predictions['binary'][0] + predictions['binary'][1]
+    predictions['binary'][0] *= (100/total)
+    predictions['binary'][1] *= (100/total)
     predictions['media'] = list([ m/16 for m in predictions['media']])
     return predictions
 

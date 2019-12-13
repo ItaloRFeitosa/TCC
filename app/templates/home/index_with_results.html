@@ -6,14 +6,26 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Imagem</h3>
+                
             </div>
             
             <div class="box-body">
-                <img src="{{path}}" style="width:100%">
+               
+
+                    <img src="{{path}}" style="width:100%;">
+              
             </div>
             
             <div class="box-footer">
-                
+                {% if  predictions['binary'][1] >= 50 %}
+                <span  class="label label-danger pull-right" >
+                    <h4>Câncer em Potencial</h4>
+                </span>
+                {% else %}
+                <span  class="label label-success pull-right" >
+                    <h4>Baixa Probabilidade de Câncer</h4>
+                </span>
+                {% endif %}
             </div>
         </div>
 
@@ -22,10 +34,11 @@
 
 {% block chart %}
 <div class="col-md-12">
-
+        
+    
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Resultados Gerais</h3>
+                <h3 class="box-title"> Resultados Gerais</h3>
             </div>
             
             <div class="box-body">
@@ -41,9 +54,9 @@
                     <tr>
                         <td>Média Geral</td>
                         {% for media in predictions['media'] %}
-                        {% if (media > 60) %}
+                        {% if (media > 50) %}
                         <td align="center"><strong>{{ '%.3f' % media }} %</strong></td>
-                        {% elif  (media >= 20) and (media <= 60) %}
+                        {% elif  (media >= 10) and (media <= 50) %}
                         <td align="center"><strong style="color: red;">{{ '%.3f' % media }} %</strong></td>
                         {% else %}
                         <td align="center">{{ '%.3f' % media }} %</td>
@@ -86,9 +99,9 @@
                 <tr>
                     <td style="width: 30%;">{{pred['name']}}</td>
                     {% for p in pred['pred'] %}
-                    {% if  (p ==  pred['pred'][pred['max']]) and (p > 60) %}
+                    {% if  (p ==  pred['pred'][pred['max']]) and (p > 50) %}
                     <td align="center"><strong>{{ '%.3f' % p }} %</strong></td>
-                    {% elif  (p >= 20) and (p <= 60) %}
+                    {% elif  (p >= 10) and (p <= 50) %}
                     <td align="center"><strong style="color: red;">{{ '%.3f' % p }} %</strong></td>
                     {% else %}
                     <td align="center">{{ '%.3f' % p }} %</td>
